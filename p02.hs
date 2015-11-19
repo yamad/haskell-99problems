@@ -13,7 +13,7 @@ penultimate' :: [a] -> a
 penultimate' = second' . reverse'
 
 penultimate'' :: [a] -> a
-penultimate'' :: last . init
+penultimate'' = last . init
 
 -- get second element in list
 second' :: [a] -> a
@@ -27,10 +27,15 @@ reverse' []     = []
 reverse' (x:xs) = (reverse' xs) ++ [x]
 
 
-prop_pen_correct x y xs = (x `notElem` xs) && (y `notElem` xs) ==> penultimate (xs++[y]++[x]) == y
-prop_pen_correct x y xs = (x `notElem` xs) && (y `notElem` xs) ==> penultimate (xs++[y]++[x]) == y
-prop_pen'_correct x y xs = (x `notElem` xs) && (y `notElem` xs) ==> penultimate' (xs++[y]++[x]) == y
-
+prop_pen_correct x y xs =
+  (x `notElem` xs) && (y `notElem` xs) ==>
+  penultimate (xs++[y]++[x]) == y
+prop_pen'_correct x y xs =
+  (x `notElem` xs) && (y `notElem` xs) ==>
+  penultimate' (xs++[y]++[x]) == y
+prop_pen''_correct x y xs =
+  (x `notElem` xs) && (y `notElem` xs) ==>
+  penultimate'' (xs++[y]++[x]) == y
 
 return []
 main = $(quickCheckAll)

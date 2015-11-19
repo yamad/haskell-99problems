@@ -14,7 +14,7 @@ elementAt [] _     = error "not enough items"
 elementAt' :: [a] -> Int -> a
 elementAt' xs n = xs !! (n-1)
 
-prop_elem xs n = length xs > 0 && n > 0 ==> elementAt xs n == xs !! (n-1)
+prop_elem xs n = length xs > 0 && n > 0 && length xs >= n ==> elementAt xs n == xs !! (n-1)
 
 return []
 main = $(quickCheckAll)
