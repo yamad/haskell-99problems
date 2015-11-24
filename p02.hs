@@ -3,25 +3,27 @@
 import Test.QuickCheck
 import Test.QuickCheck.All
 
--- find last but one element of a list
+-- | find last but one element of a list
 penultimate :: [a] -> a
-penultimate []       = error "empty list"
-penultimate [x,_]     = x
-penultimate (_:xs)   = penultimate xs
+penultimate []     = error "empty list"
+penultimate [x,_]  = x
+penultimate (_:xs) = penultimate xs
 
-penultimate' :: [a] -> a
-penultimate' = second' . reverse'
+-- | composition-based version
+penultimateCompose :: [a] -> a
+penultimateCompose = second' . reverse'
 
-penultimate'' :: [a] -> a
-penultimate'' = last . init
+-- | composition of built-ins
+penultimateBuiltins :: [a] -> a
+penultimateBuiltins = last . init
 
--- get second element in list
+-- | get second element in list
 second' :: [a] -> a
 second' []  = error "empty list"
 second' [x] = error "not enough items"
 second' (x:y:xs) = y
 
--- reverse a list
+-- | reverse a list
 reverse' :: [a] -> [a]
 reverse' []     = []
 reverse' (x:xs) = (reverse' xs) ++ [x]
