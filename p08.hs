@@ -21,6 +21,12 @@ compressFold = foldr skipRepeats []
       | x == head acc  = acc
       | otherwise      = x : acc
 
+-- from HaskellWiki, not sure how it works
+compressFoldr xs = foldr f (const []) xs Nothing
+  where
+    f x r a@(Just q) | x == q = r a
+    f x r _                   = x : r (Just x)
+
 main = do
   print $ compress "aaaabccaadeeee"
   print $ compress [1,1,1,2,2,3,4,4,4,5,5,6,8,8]
@@ -28,3 +34,5 @@ main = do
   print $ compress' [1,1,1,2,2,3,4,4,4,5,5,6,8,8]
   print $ compressFold "aaaabccaadeeee"
   print $ compressFold [1,1,1,2,2,3,4,4,4,5,5,6,8,8]
+  print $ compressFoldr "aaaabccaadeeee"
+  print $ compressFoldr [1,1,1,2,2,3,4,4,4,5,5,6,8,8]
