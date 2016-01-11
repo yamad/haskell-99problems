@@ -1,6 +1,7 @@
 -- problem 23, extract a given number of randomly selected elements from a list
 import System.Random
 import Data.List
+import Control.Applicative
 
 rndSelect :: [a] -> Int -> IO [a]
 rndSelect xs n = map (xs!!) <$> (take (min n (length xs - 1)) . nub <$> randomRs (0, length xs - 1) <$> newStdGen)
